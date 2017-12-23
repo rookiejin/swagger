@@ -1,0 +1,107 @@
+{
+"swagger": "2.0",
+"info": {
+"description": "后台管理模块",
+"title": "GOLANG-GIN",
+"contact": {
+"email": "mrjnamei@gmail.com"
+},
+"license": {},
+"version": "{1.2.1}"
+},
+"basePath": "/v1",
+"paths": {
+"/pets": {
+"get": {
+"description": "获取pets",
+"consumes": [
+"application/json"
+],
+"produces": [
+"application/json"
+],
+"tags": [
+"users"
+],
+"summary": "getPets",
+"operationId": "file.upload",
+"parameters": [
+{
+"description": "pets fields",
+"name": "pets",
+"in": "body",
+"required": true,
+"schema": {
+"type": "object",
+"$ref": "#definitions/Pets"
+}
+}
+],
+"responses": {
+"200": {
+"description": "success",
+"schema": {
+"type": "object",
+"$ref": "#/definitions/Pets"
+}
+},
+"422": {
+"description": "error info",
+"schema": {
+"type": "object",
+"$ref": "#/definitions/Error"
+}
+}
+}
+}
+}
+},
+"definitions": {
+"Error": {
+"type": "object",
+"properties": {
+"code": {
+"type": "int"
+},
+"message": {
+"type": "string"
+}
+}
+},
+"Pets": {
+"type": "object",
+"properties": {
+"id": {
+"type": "string"
+},
+"tag": {
+"type": "array",
+"items": {
+"$ref": "#/definitions/Tag"
+}
+}
+}
+},
+"Tag": {
+"type": "object",
+"properties": {
+"id": {
+"type": "string"
+},
+"name": {
+"type": "string"
+}
+}
+}
+},
+"tags": [
+{
+"description": "公共部分",
+"name": "common"
+},
+{
+"description": "内容部分",
+"name": "contents"
+}
+]
+}

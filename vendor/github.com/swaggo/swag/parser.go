@@ -206,12 +206,14 @@ func (parser *Parser) ParseDefinitions() {
 		case *ast.StructType:
 			structDecl := typeSpec.Type.(*ast.StructType)
 			fields := structDecl.Fields.List
-
 			for _, field := range fields {
-				name := field.Names[0].Name
-				propName := getPropertyName(field)
-				properties[name] = spec.Schema{
-					SchemaProps: spec.SchemaProps{Type: []string{propName}},
+				if len(field.Names) > 0 {
+					name := field.Names[0].Name
+					propName := getPropertyName(field)
+					name = snakeString(name)
+					properties[name] = spec.Schema{
+						SchemaProps: spec.SchemaProps{Type: []string{propName}},
+					}
 				}
 			}
 
@@ -252,4 +254,21 @@ func (parser *Parser) getAllGoFileInfo(searchDir string) {
 // GetSwagger returns *spec.Swagger which is the root document object for the API specification.
 func (parser *Parser) GetSwagger() *spec.Swagger {
 	return parser.swagger
+}
+
+func snakeString(s string) string {
+	data := make([]byte, 0, len(s)*2)
+	j := false
+	num := len(s)
+	for i := 0; i < num; i++ {
+		d := s[i]
+		if i > 0 && d >= 'A' && d <= 'Z' && j {
+			data = append(data, '_')
+		}
+		if d != '_' {
+			j = true
+		}
+		data = append(data, d)
+	}
+	return strings.ToLower(string(data[:]))
 }

@@ -1,27 +1,21 @@
 package model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-	"time"
-)
+import "gopkg.in/mgo.v2/bson"
 
-type File struct {
-	Id bson.ObjectId `json:"_id" bson:"_id"`
-	UserId int64 `json:"user_id"`
-	Filename string `json:"filename"`
-	Md5 string `json:"md5"`
-	Url string `json:"url"`
+// @def Pets
+type Pets struct {
+	Id bson.ObjectId `json:"id"`
+	Tag []Tag `json:"tag" swag:"Tag"`
 }
 
-
-type APIError struct {
-	ErrorCode    int
-	ErrorMessage string
-	CreatedAt time.Time
+// @def Tag
+type Tag struct {
+	Id bson.ObjectId `json:"id"`
+	Name string `json:"name"`
 }
 
-type APISuccess struct {
-	ErrorCode    int
-	ErrorMessage string
-	CreatedAt time.Time
+// @def Error
+type Error struct {
+	Code int `json:"code"`
+	Message string `json:"message"`
 }

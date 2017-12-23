@@ -147,8 +147,8 @@ func (operation *Operation) ParseParamComment(commentLine string) error {
 				}
 			}
 
-			//case "Header": // TODO: support Header and Form
-			//	panic("not supported Header paramType yet.")
+			case "header": // TODO: support Header and Form
+				param = createFormDataParameter(paramType , description , name , schemaType, required)
 			//case "Form":
 			//	panic("not supported Form paramType yet.")
 		}
@@ -232,6 +232,7 @@ func (operation *Operation) ParseResponseComment(commentLine string) error {
 
 	schemaType := strings.Trim(matches[2], "{}")
 	refType := matches[3]
+	fmt.Println(refType)
 
 	if operation.parser != nil { // checking refType has existing in 'TypeDefinitions'
 		refSplit := strings.Split(refType, ".")
