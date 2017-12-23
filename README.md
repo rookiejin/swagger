@@ -41,7 +41,7 @@ swagger -main main.go
 ```
 
 * Response definitions
-`
+```
     // @Success 200 {object} @ArticleTag "ok"
     // @Failure 400 {object} @ArticleTag "error message"
 ```
